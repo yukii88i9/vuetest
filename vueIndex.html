@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <svg>
+
+            <g id="layer01">
+                <rect id="a3" x="52" y="54" fill="#FF6CC4" width="75" height="75" />
+                <circle id="a2" fill="#5CD5FF" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" cx="109.25"
+                    cy="118" r="40.75" />
+                <polygon id="a1" fill="#FFB65F" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" points="109.25,112.941 
+                    129.186,147.471 149.121,182 109.25,182 69.378,182 89.314,147.471     " />
+            </g>
+            <g id="layer02">
+                <ellipse fill="#67CE6F" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" cx="75" cy="196.375"
+                    rx="47" ry="37.625" />
+            </g>
+        </svg>
+        <p> date:{{date}}</p>
+        <p> tranDate:{{tranDate}}</p>
+        <p> getTranData():{{getTranData()}}</p>
+        <p> date2:{{date2}}</p>
+        <p> date3:{{date3}}</p>
+        <input type="text" v-model.lazy="tranDate">
+        <button @click="a++">+</button>
+        <!--a++ === a=a+1-->
+        <button @click="a--">--</button>
+        <div>a: {{a}}</div>
+        <div>changed: {{newA}}</div>
+        <div>before change: {{oldA}}</div>
+        <!--V-MODEL.LAZY 代表使用者輸入完才進行資料綁定-->
+    </div>
+</body>
+<script>
+    var app1 = new Vue({
+        el: "#app",
+        //{}物件 json exp:狗={毛色:"白" ,吼叫(){輸出"旺旺"}}  []陣列 exp:同學=["小明","小美","小華"]  同學[1]=>小美
+        //()丟參數 function apple(str){console.log(str)} apple("hello world")
+        data: {
+            date: "2020-03-05",
+            a: 1,
+            newA: 0,
+            oldA: 0,
+            n: 10, date2: "", date3: "",
+            zeroToNArr: []
+        },
+        computed: {
+            tranDate: {
+                get: function () {
+                    let year = this.date.slice(0, 4) - 1911
+                    let str = this.date.slice(4).replace(/-/g, '/')
+                    return year + str
+                },
+                set: function (str) {
+
+                    let year = parseInt(str.slice(0, 3)) + 1911
+                    //轉成整數才能做加減乘除
+                    let temp = str.slice(3).replace(/\//g, '-')
+                    //正則表達式要判斷 / 時 要用 \/ 來表示 / 
+                    this.date = year + temp
+                }
+            }
+        },
+        methods: {
+            getTranData() {
+
+                let year = this.date.slice(0, 4) - 1911
+                let str = this.date.slice(4).replace(/-/g, '/')
+                return year + str
+
+            }
+        },
+        created() {
+            this.zeroToNArr = Array.from(new Array(this.n + 1), (val, index) => index);//可以將immediate 設定為true
+
+        },
+        watch: {
+            a: function (newA, oldA) {
+                this.newA = newA;
+                this.oldA = oldA;
+            },
+            date: [{
+                handler: function (val) {
+                    let year = val.slice(0, 4) - 1911
+                    let str = val.slice(4).replace(/-/g, '/')
+                    this.date2 = year + str
+                },
+                immediate: true
+            }, {
+                handler: function (val) {
+
+                    this.date3 = val.slice(0).replace(/-/g, '/')
+
+                },
+
+            }
+            ]
+        }
+    })
+    app1.$watch('n', function () {
+        this.zeroToNArr = Array.from(new Array(this.n + 1), (val, index) => index);
+    });
+
+    Vue.config.devtools = true
+</script>
+
+</html>

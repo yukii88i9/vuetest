@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box"></div>
+    <div class="box1"></div>
+    <div class="box2 L"></div>
+    <div class="box2 R"></div>
+</body>
+
+<style>
+    .box {
+        width: 1024px;
+        height: 1024px;
+        background-color: black;
+        position: relative;
+        left: 15%;
+    }
+
+    .box1 {
+        width: 1024px;
+        height: 200px;
+        position: relative;
+        left: 15%;
+        background-color: red;
+
+    }
+
+
+    .box2 {
+        width: 100px;
+        height: 100px;
+        background-color: teal;
+        position: absolute;
+        top: 800px;
+        display: none;
+
+    }
+
+    .box2.dis {
+        display: block;
+    }
+
+    .box2.L {
+        left: 500px;
+    }
+
+    .box2.R {
+        left: 800px
+    }
+</style>
+<script>
+    const boxchange = document.querySelectorAll('.box2')
+    document.addEventListener('scroll', scrollHandle)
+    function scrollHandle() {
+        if (window.pageYOffset >= 300) {
+            boxchange.forEach(element => {
+                element.classList.add('dis')
+                element.classList.add('animated')
+                element.classList.add('bounceInLeft')
+            });
+        }
+    }
+
+
+
+</script>
+
+</html>

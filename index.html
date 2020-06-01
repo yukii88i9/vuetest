@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="sliderShow">
+        <div class="sliderArea active"  style="background-image: url('http://127.0.0.1:5500/Img/1.jpg');"></div>
+        <div class="sliderArea"  style="background-image: url('http://127.0.0.1:5500/Img/2.jpg');"></div>
+        <div class="sliderArea"  style='background-image: url("http://127.0.0.1:5500/Img/3.jpg");'></div>
+        <img class="arr back" src="./Img/back.png" alt="">
+        <img class="arr next" src="./Img/next.png" alt="">
+    </div>
+
+</body>
+
+<style>
+
+    img.arr{
+        position: absolute;
+        height: 50px;
+        top: 37%;
+    }
+    .arr.back{
+        left: -5%;
+    }
+    .arr.next{
+        left: 100%;
+    }
+    div.sliderArea{
+        width: 1024x;
+        height: 768px;
+        background-size: cover;
+        display: none;
+    }   
+    div.sliderArea.active{
+        display: block;
+    }
+    .sliderShow{
+        margin: 0 auto;
+        width: 1024px;
+        height: 768px;
+        position: relative;
+    }
+</style>
+
+
+<script>
+document.querySelector('.arr.back').addEventListener('click',clickHandle)
+document.querySelector('.arr.next').addEventListener('click',clickHandle1)
+const imgList = document.querySelectorAll('.sliderArea')
+var nowImgIndex = 0
+function clickHandle(){
+    imgList[nowImgIndex].classList.remove('active')
+    nowImgIndex = (nowImgIndex-1)<0? imgList.length-1 :nowImgIndex-1
+    imgList[nowImgIndex].classList.add('active')
+}
+function clickHandle1(){
+    imgList[nowImgIndex].classList.remove('active')
+    nowImgIndex = (nowImgIndex+1)>(imgList.length-1)? 0 :nowImgIndex+1
+    imgList[nowImgIndex].classList.add('active')
+}
+</script>
+</html>

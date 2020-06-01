@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js'></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="selected">
+            <option v-for="item in typeMenu">{{item}}</option>
+        </select>
+        <select>
+            <option v-for="item in titleMenu">{{item.name}}</option>
+        </select>
+    </div>
+</body>
+
+<script>
+    let data = {
+        selected: null,
+        menu: [
+            { title: "懸疑驚悚", name: "靈異第六感" },
+            { title: "懸疑驚悚", name: "記憶拼圖" },
+            { title: "懸疑驚悚", name: "別相信任何人" },
+            { title: "懸疑驚悚", name: "列車上的女孩" },
+            { title: "懸疑驚悚", name: "戰慄空間" },
+            { title: "懸疑驚悚", name: "哭泣的女人" },
+            { title: "動作冒險", name: "瘋狂麥斯：憤怒道" },
+            { title: "動作冒險", name: "追殺比爾" },
+            { title: "動作冒險", name: "絕命追殺令" },
+            { title: "動作冒險", name: "不可能的任務" },
+            { title: "動作冒險", name: "即刻救援" },
+            { title: "動作冒險", name: "終極警探4.0" },
+            { title: "愛情喜劇", name: "單身啪啪啪" },
+            { title: "愛情喜劇", name: "我就要你好好的" },
+            { title: "愛情喜劇", name: "被偷走的那五年" },
+            { title: "愛情喜劇", name: "失戀33天" },
+            { title: "愛情喜劇", name: "七月與安生" },
+            { title: "愛情喜劇", name: "寂寞拍賣師" },
+            { title: "科技倫理", name: "楚門的世界" },
+            { title: "科技倫理", name: "雲端情人" },
+            { title: "科技倫理", name: "星際效應" },
+            { title: "科技倫理", name: "攻殼機動隊" },
+            { title: "科技倫理", name: "關鍵報告" },
+            { title: "科技倫理", name: "攔截記憶碼" },
+            { title: "偵探推理", name: "東方快車謀殺案" },
+            { title: "偵探推理", name: "布魯克林孤兒" },
+            { title: "偵探推理", name: "鋒迴路轉" },
+            { title: "偵探推理", name: "福爾摩斯" },
+            { title: "偵探推理", name: "威探闖通關" },
+            { title: "偵探推理", name: "白色聖誕節" },
+        ]
+    }
+    let vm = new Vue({
+        el: "#app",
+        data: data,
+        computed: {
+            typeMenu() {
+                let set = new Set()
+                this.menu.forEach(item => {
+                   set.add(item.title)
+                });
+                return set
+            },
+            titleMenu() {
+                return this.menu.filter(item => {
+                    return item.title == this.selected
+                })
+            }
+
+
+
+
+        }
+
+
+    })
+</script>
+
+</html>

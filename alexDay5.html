@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- tr 元素定義表格行，th 元素定義表頭，td 元素定義表格單元。 -->
+    <div id="app">
+        <div class="container">
+            我是{{name}}，{{age}}，{{gender}}生，{{favorList.length ? "興趣是" :""}}{{  favorList.join("、")}}
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="firstName">姓名：</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="" value="Paige" :value="name"
+                        @input="inputHandler" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName">年齡：</label>
+                    <select class="custom-select d-block w-100" v-model="age">
+                        　<option>20-30歲間</option>
+                        　<option>30-40歲間</option>
+                        　<option>40-50歲間</option>
+                        　<option>50歲以上</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName">性別：</label>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" value="男" name="paymentMethod" v-model="gender" type="radio"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="credit">男</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" value="女" name="paymentMethod" type="radio" v-model="gender"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="debit">女</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-8 order-md-1">
+                    <label for="firstName">興趣：</label>
+
+                    <div class='custom-control custom-checkbox' v-for="(item,index) in favorItem" :key="item">
+                        <input type="checkbox" class="custom-control-input" :id="item" v-model="favor[index]">
+                        <label class="custom-control-label" :for="item">{{item}}</label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+<style>
+    .custom-control-input {
+        position: relative;
+        margin-bottom: 0;
+        vertical-align: top;
+    }
+
+
+    .row {
+        display: block;
+    }
+
+    .custom-control-label {
+        position: relative;
+        margin-bottom: 0;
+        vertical-align: top;
+    }
+
+    .custom-control-label::after {
+        box-sizing: border-box;
+    }
+</style>
+<script>
+    var app1 = new Vue({
+        el: "#app",
+        data: {
+            name: "Paige",
+            age: "20-30歲間",
+            gender: "女",
+            favorItem: ["畫圖", "跑步", "彈鋼琴", "睡覺"],
+            favor: [],
+        },
+        computed: {
+            favorList() {
+                let list = []
+                this.favor.forEach((el, index) => {
+                    if (el) list.push(this.favorItem[index])
+                });
+
+                return list
+            }
+        },
+        methods: {
+            inputHandler(e) {
+                this.name = e.target.value
+
+            }
+        },
+        mounted() {
+            this.favor = new Array(this.favorItem.length)
+        }
+    })
+    Vue.config.devtools = true
+</script>
+
+</html>
